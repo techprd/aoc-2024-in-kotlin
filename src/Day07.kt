@@ -1,3 +1,6 @@
+import kotlin.math.log10
+import kotlin.math.pow
+
 fun main() {
     fun part1(input: List<String>): Long {
         val parsedInput = parseInput(input)
@@ -20,7 +23,7 @@ fun main() {
 }
 
 
-fun parseInput(input: List<String>): List<Pair<Long, List<Long>>> {
+private fun parseInput(input: List<String>): List<Pair<Long, List<Long>>> {
     return input.map { line ->
         val head = line.split(":")[0]
         val tail = line.split(":")[1]
@@ -52,5 +55,7 @@ fun solve(goal: Long, eqs: List<Long>, useConcat: Boolean): Long {
 }
 
 fun Long.concat(rhs: Long): Long {
-    return this.toString().plus(rhs.toString()).toLong()
+    // return this.toString().plus(rhs.toString()).toLong()
+    // equivalent to the above line but more efficient
+    return this * 10.0.pow((log10(rhs.toDouble()) + 1).toInt()).toInt() + rhs
 }
